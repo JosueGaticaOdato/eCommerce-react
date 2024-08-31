@@ -1,7 +1,8 @@
 import React from 'react'
+import { Layout } from '../../Components/Layout/Layout'
 
 export const SignIn = () => {
   return (
-    <div>SignIn</div>
+    <Layout>SignIN</Layout>
   )
 }
