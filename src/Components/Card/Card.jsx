@@ -1,4 +1,5 @@
 import React, { useContext } from "react";
+import { PlusIcon, CheckIcon } from '@heroicons/react/24/solid'
 import { ShoppingCartContext } from "../../Context/ShoppingCart";
 
 export const Card = (data) => {
@@ -18,6 +19,27 @@ export const Card = (data) => {
     
   };
 
+  const renderIcon = (id) => {
+    const isInCart = context.cartProducts.filter(product => product.id === id).length > 0
+
+    if (isInCart) {
+      return (
+        <div
+          className='absolute top-0 right-0 flex justify-center items-center bg-black w-6 h-6 rounded-full m-2 p-1'>
+          <CheckIcon className='h-6 w-6 text-white'></CheckIcon>
+        </div>
+      )
+    } else {
+      return (
+        <div
+          className='absolute top-0 right-0 flex justify-center items-center bg-white w-6 h-6 rounded-full m-2 p-1'
+          onClick={(event) => addProductsToCart(event, data.data)}>
+          <PlusIcon className='h-6 w-6 text-black'></PlusIcon>
+        </div>
+      )
+    }
+  }
+
   return (
     <div
       className="bg-white cursor-pointer w-56 h-60 rounded-lg"
@@ -32,25 +54,7 @@ export const Card = (data) => {
           src={data.data.images[0]}
           alt={data.data.title}
         />
-        <button
-          className="absolute top-0 right-0 flex justify-center items-center bg-white w-6 h-6 rounded-full m-2 p-1"
-          onClick={(event) => addProductsToCart(event, data.data)}
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth={1.5}
-            stroke="currentColor"
-            className="size-6"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M12 4.5v15m7.5-7.5h-15"
-            />
-          </svg>
-        </button>
+        {renderIcon(data.data.id)}
       </figure>
       <p className="flex justify-between">
         <span className="text-sm font-light">{data.data.title}</span>
