@@ -19,6 +19,7 @@ function App() {
           <Route path="/my-order" element={<MyOrder />}></Route>
           <Route path="/my-orders" element={<MyOrders />}></Route>
           <Route path="/my-orders/last" element={<MyOrder />}></Route>
+          <Route path="/my-orders/:id" element={<MyOrder />}></Route>
           <Route path="/sign-in" element={<SignIn />}></Route>
           <Route path="/*" element={<NotFound />}></Route>
         </Routes>
