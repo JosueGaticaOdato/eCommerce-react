@@ -7,6 +7,7 @@ import { SignIn } from "../SignIn/SignIn";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Navbar } from "../../Components/Navbar/Navbar";
 import { ShoppingCartProvider } from "../../Context/ShoppingCart";
+import { CheckoutSideMenu } from "../../Components/CheckoutSideMenu/CheckoutSideMenu";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
           <Route path="/*" element={<NotFound />}></Route>
         </Routes>
         <Navbar />
+        <CheckoutSideMenu/>
       </BrowserRouter>
     </ShoppingCartProvider>
   );
