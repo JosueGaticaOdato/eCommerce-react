@@ -9,18 +9,18 @@ export const Home = () => {
   const context = useContext(ShoppingCartContext);
 
   const renderView = () => {
-    if (context.searchByTitle?.length > 0) {
-      if (context.filteredItems?.length > 0) {
-        return context.filteredItems?.map((item) => (
+    if (context.filteredItems?.length > 0) {
+      return (
+        context.filteredItems?.map(item => (
           <Card key={item.id} data={item} />
-        ));
-      } else {
-        return <div> No hay coincidencias! </div>;
-      }
+        ))
+      )
     } else {
-      return context.items?.map((item) => <Card key={item.id} data={item} />);
+      return (
+        <div>We don't have anything :(</div>
+      )
     }
-  };
+  }
 
   return (
     <Layout>
