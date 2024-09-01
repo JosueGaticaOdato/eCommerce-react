@@ -1,36 +1,42 @@
-import { useState, useEffect } from "react";
+import { useContext } from "react";
 import { Card } from "../../Components/Card/Card";
 import { Layout } from "../../Components/Layout/Layout";
 import { ProductDetail } from "../../Components/ProductDetail/ProductDetail";
-
-export const apiUrl = "https://api.escuelajs.co/api/v1";
+import { ShoppingCartContext } from "../../Context/ShoppingCart";
+import { render } from "react-dom";
 
 export const Home = () => {
-  const [items, setItems] = useState(null);
+  const context = useContext(ShoppingCartContext);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try{
-        const response = await fetch(`${apiUrl}/products`)
-        const data = await response.json()
-        setItems(data) 
-      } catch (error){
-        console.error(`Ocurrio un error: ${error}`)
+  const renderView = () => {
+    if (context.searchByTitle?.length > 0) {
+      if (context.filteredItems?.length > 0) {
+        return context.filteredItems?.map((item) => (
+          <Card key={item.id} data={item} />
+        ));
+      } else {
+        return <div> No hay coincidencias! </div>;
       }
+    } else {
+      return context.items?.map((item) => <Card key={item.id} data={item} />);
     }
-    fetchData()
-  },[])
+  };
 
   return (
     <Layout>
-      Home
-      <div className="grid gap-4 grid-cols-4 w-full max-w-screen-lg">
-      {items?.map(item => (
-        <Card key={item.id} data={item} />
-      ))}
+      <div className="flex items-center justify-center relative w-80 mb-4">
+        <h1 className="font-medium text-xl">Exclusive Products</h1>
       </div>
-      <ProductDetail/>
-      
+      <input
+        type="text"
+        placeholder="Search a product"
+        className="rounded-lg border border-black w-80 p-4 mb-4 focus:outline-none"
+        onChange={(event) => context.setSearchByTitle(event.target.value)}
+      />
+      <div className="grid gap-4 grid-cols-4 w-full max-w-screen-lg">
+        {renderView()}
+      </div>
+      <ProductDetail />
     </Layout>
   );
 };
