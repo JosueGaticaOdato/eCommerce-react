@@ -15,7 +15,7 @@ export const Card = (data) => {
     context.setCartProducts([...context.cartProducts, productData]);
     context.openCheckoutSideMenu();
     context.closeProductDetail();
-    console.log("Cart: ", context.cartProducts);
+    
   };
 
   return (

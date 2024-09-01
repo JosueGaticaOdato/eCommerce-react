@@ -1,11 +1,13 @@
 import "./styles.css";
 import React, { useContext } from "react";
 import { ShoppingCartContext } from "../../Context/ShoppingCart";
+import { OrderCard } from "../OrderCard/OrderCard";
 
 export const CheckoutSideMenu = () => {
   const context = useContext(ShoppingCartContext);
   //console.log("Product to show:", context.productToShow);
   //console.log(context.isCheckoutSideMenuOpen);
+  console.log("Cart: ", context.cartProducts);
 
   return (
     <aside
@@ -33,6 +35,17 @@ export const CheckoutSideMenu = () => {
           </svg>
         </div>
       </div>
+        <div className="px-6">
+
+      {context.cartProducts.map(product => (
+        <OrderCard
+          key={product.id}
+          title={product.title}
+          imageUrl={product.images}
+          price={product.prices}
+        />
+      ))}
+        </div>
     </aside>
   );
 };
